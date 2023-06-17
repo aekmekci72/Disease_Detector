@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/public/stylesheets/stylesheet1.css">
+    <title>Disease Detector</title>
+</head>
+<body>
+    <nav class="teal darken-1">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">
+                <i class="material-icons left">local_hospital</i>
+                Disease Detector
+            </a>
+            <a href ="/" class = "sidenav-trigger">
+                <i class = "material-icons">local_hospital</i>
+            </a>
+            <ul class="right">
+                <li>
+                    <a href="/">
+                        <i class="material-icons left">home</i>
+                        Home
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/intro">
+                        <i class="material-icons left">person_add</i>
+                        New Diagnosis
+                    </a>
+                </li>
+                <li>
+                    <a href="/database">
+                        <i class="material-icons left">people</i>
+                        Database
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h4>Selected Symptoms:</h4>
+        <ul id="selected-symptoms"></ul>
+        
+        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/intro/riskconditions/confirmrisk/symptoms">
+            <i class="material-icons right">chevron_left</i>Return
+        </a>
+        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/intro/riskconditions/confirmrisk/symptoms/confirmsymptoms/results">
+            <i class="material-icons right">chevron_right</i>Continue
+        </a>
+    </div>
+
+    <script>
+        // Retrieve the selectedSymptoms array from localStorage
+        const selectedSymptoms = JSON.parse(localStorage.getItem('selectedSymptoms'));
+
+        // Display the selected symptoms in an unordered list
+        const selectedSymptomsList = document.getElementById('selected-symptoms');
+        selectedSymptoms.forEach(symptom => {
+            const li = document.createElement('li');
+            li.textContent = symptom;
+            selectedSymptomsList.appendChild(li);
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>M.AutoInit();</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/public/stylesheets/stylesheet1.css">
+    <title>Disease Detector</title>
+
+</head>
+<body>
+    
+
+    <nav class="teal darken-1">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">
+                <i class="material-icons left">local_hospital</i>
+                Disease Detector
+            </a>
+            <a href ="/" class = "sidenav-trigger">
+                <i class = "material-icons">local_hospital</i>
+            </a>
+            <!-- a is for hyperlink -->
+            <!-- ul for unordered list -->
+            <!-- li for list items -->
+            <ul class="right">
+                <li>
+                    <a href="/">
+                        <i class="material-icons left">home</i>
+                        Home
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/intro">
+                        <i class="material-icons left">person_add</i>
+                        New Diagnosis
+                    </a>
+                </li>
+                <li >
+                    <a href="/database">
+                        <i class="material-icons left">people</i>
+                        Database
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class = "container">
+        <h4>Based on reuslts your symptoms showed...</h4>
+        <ul id="selected-risks"></ul>
+        <ul id="selected-symptoms"></ul>
+        <h4>What does this mean?</h4>
+        <h6>Will give list of possible diseases- need to create database first to fetch that information and run algorithm</h6>
+    </div>
+
+<script>
+        const selectedRisks = JSON.parse(localStorage.getItem('selectedRisks'));
+
+const selectedRisksList = document.getElementById('selected-risks');
+selectedRisks.forEach(risk => {
+    const li = document.createElement('h5');
+    li.innerText = risk;
+    selectedRisksList.appendChild(li);
+    
+    if (risk === "r1"){
+        const info = document.createElement('h6');
+        info.innerText = "This is what risk 1 implies";
+        selectedRisksList.appendChild(info);
+    }
+    
+    if (risk === "r2"){
+        const info = document.createElement('h6');
+        info.innerText = "This is what risk 2 implies";
+        selectedRisksList.appendChild(info);
+    }
+});
+</script>
+
+<script>
+        const selectedSymptoms = JSON.parse(localStorage.getItem('selectedSymptoms'));
+
+const selectedSymptomsList = document.getElementById('selected-symptoms');
+selectedSymptoms.forEach(symptom => {
+    const li = document.createElement('h5');
+    li.innerText = symptom;
+    selectedSymptomsList.appendChild(li);
+    
+    if (symptom === "s1"){
+        const info = document.createElement('h6');
+        info.innerText = "This is what symptom 1 implies";
+        selectedSymptomsList.appendChild(info);
+    }
+    
+    if (symptom === "s2"){
+        const info = document.createElement('h6');
+        info.innerText = "This is what symptom 2 implies";
+        selectedSymptomsList.appendChild(info);
+    }
+});
+
+</script>
+    
+    <div class = "container">
+        <br>
+        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/intro">
+            <i class="material-icons right">person_add</i>Another Diagnosis
+        </a>
+        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/database">
+            <i class="material-icons right">people</i>Database
+        </a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>M.AutoInit();</script>
+
+</body>
+</html>
+
+<!-- hi -->

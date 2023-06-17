@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/public/stylesheets/stylesheet1.css">
+    <title>Disease Detector</title>
+
+
+</head>
+<body>
+<!-- We were thinking the data would add automatically once somebody took a new Diagnosis -->
+    <nav class="teal darken-1">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">
+                <i class="material-icons left">local_hospital</i>
+                Disease Detector
+            </a>
+            <a href ="/" class = "sidenav-trigger">
+                <i class = "material-icons">local_hospital</i>
+            </a>
+            <!-- a is for hyperlink -->
+            <!-- ul for unordered list -->
+            <!-- li for list items -->
+            <ul class="right">
+                <li >
+                    <a href="/">
+                        <i class="material-icons left">home</i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/intro">
+                        <i class="material-icons left">person_add</i>
+                        New Diagnosis
+                    </a>
+                </li>
+                <li class="active" >
+                    <a href="/database">
+                        <i class="material-icons left">people</i>
+                        Database
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class = "container">
+        <h4><%= patient.name_last %>, <%= patient.name_first %> <%= patient.middle_initial %></h4>
+        <table>
+            <thead>
+                <!-- tr = table row -->
+                <tr>
+                    <th class = "">Age:</th>
+                    <th><%= patient.age %></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gender:</td>
+                    <td><%= patient.gender %></td>
+                </tr>
+                <tr>
+                    <td>Weight(kg):</td>
+                    <td><%= patient.weight %></td>
+                </tr>
+                <tr>
+                    <td>Height(cm):</td>
+                    <td><%= patient.height %></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td><%= patient.dob %></td>
+                </tr>
+            </tbody>
+        </table>
+              
+        <br>
+        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="#edit">
+            <i class="material-icons right">edit</i>Info/Edit
+        </a>
+        <a class = "waves-effect waves-light btn-small orange" href="/database">
+            <i class="material-icons right">chevron_left</i>Return
+        </a>
+    </div>
+
+    <div id="edit" class="modal">
+        <div class = "container">
+            <div class="section" id="add">
+                <form id="updateForm" method="post" action="/database/update/<%= patient.patient_id%>">
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <input type="text" id="titleInput" name="name_first" class="validate" data-length="45" required>
+                            <label for="titleInput">Patient First Name</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input type="text" id="titleInput" name="middle_initial" class="validate" data-length="1">
+                            <label for="titleInput">Patient Middle Initial</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <input type="text" id="titleInput" name="name_last" class="validate" data-length="45" required>
+                            <label for="titleInput">Patient Last Name</label>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="input-field col s2">
+                            <input type="number" id="priorityInput" name="age" class="validate" min=0 max=120 value=1>
+                            <label for="priorityInput">Age</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <select type="number" id="subjectInput" name="gender" id="subjectInput">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value=1>Male</option>
+                                <option value=2>Female</option>
+                                <option value=3>Non-Binary</option>
+                              </select>
+                              <label for="subjectInput">Gender</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <input type="number" id="priorityInput" name="weight" class="validate" min=0 max=120 value=1>
+                            <label for="priorityInput">Weight(kg)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <input type="number" id="priorityInput" name="height" class="validate" min=0 max=120 value=1>
+                            <label for="priorityInput">Height(cm)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="date" id="dueDateInput" name="dob" id="dueDateInput">
+                            <label for="dueDateInput">DOB</label>
+                        </div>
+                    </div>
+    
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit">
+                        <i class="material-icons right">send</i>
+                        Save edit
+                    </button>
+                    <br>
+                    <br>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>M.AutoInit();</script>
+
+</body>
+</html>
+
+<!-- hi -->

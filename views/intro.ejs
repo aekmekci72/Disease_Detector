@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/public/stylesheets/stylesheet1.css">
+    <title>Disease Detector</title>
+
+
+</head>
+<body>
+<!-- We were thinking the data would add automatically once somebody took a new Diagnosis -->
+    <nav class="teal darken-1">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">
+                <i class="material-icons left">local_hospital</i>
+                Disease Detector
+            </a>
+            <a href ="/" class = "sidenav-trigger">
+                <i class = "material-icons">local_hospital</i>
+            </a>
+            <!-- a is for hyperlink -->
+            <!-- ul for unordered list -->
+            <!-- li for list items -->
+            <ul class="right">
+                <li >
+                    <a href="/">
+                        <i class="material-icons left">home</i>
+                        Home
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/intro">
+                        <i class="material-icons left">person_add</i>
+                        New Diagnosis
+                    </a>
+                </li>
+                <li>
+                    <a href="/database">
+                        <i class="material-icons left">people</i>
+                        Database
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class = "container">
+        <h5>New Diagnosis.</h5>
+        <h5>Add patient</h5>
+
+        <form id="addForm" method="post" action="/intro">
+            <form id="addForm">
+                <div class="row">
+                    <div class="input-field col s5">
+                        <input type="text" id="titleInput" name="name_first" class="validate" data-length="45" required>
+                        <label for="titleInput">Patient First Name</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input type="text" id="titleInput" name="middle_initial" class="validate" data-length="1">
+                        <label for="titleInput">Patient Middle Initial</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s5">
+                        <input type="text" id="titleInput" name="name_last" class="validate" data-length="45" required>
+                        <label for="titleInput">Patient Last Name</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s2">
+                        <input type="number" id="priorityInput" name="age" class="validate" min=0 max=120 value=1>
+                        <label for="priorityInput">Age</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <select type="number" id="subjectInput" name="gender" id="subjectInput">
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value=male>Male</option>
+                            <option value=female>Female</option>
+                            <option value=nonbinary>Non-Binary</option>
+                          </select>
+                          <label for="subjectInput">Gender</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s3">
+                        <input type="number" id="priorityInput" name="weight" class="validate" min=0 max=120 value=1>
+                        <label for="priorityInput">Weight(kg)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s3">
+                        <input type="number" id="priorityInput" name="height" class="validate" min=0 max=120 value=1>
+                        <label for="priorityInput">Height(cm)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="date" id="dueDateInput" name="dob" id="dueDateInput">
+                        <label for="dueDateInput">DOB</label>
+                    </div>
+                </div>
+
+                </div>
+                <button class="btn waves-effect waves-light" type="submit" href = "/intro/riskconditions">
+                    <i class="material-icons right">send</i>
+                    Submit
+                </button>
+            </form>
+        </form>
+
+        <br>
+        <br>
+        <div class="container">
+            <p1>This button is just for the sole purpose of skipping to the next page without entering a value for each line.</p1>
+            <br>
+            <a class = "waves-effect waves-light btn-large orange modal-trigger" href="/intro/riskconditions">
+                <i class="material-icons right">chevron_right</i>Start Diagnosis
+            </a>
+        </div>
+        <br>
+        <br>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>M.AutoInit();</script>
+
+</body>
+</html>
+
+<!-- hi -->

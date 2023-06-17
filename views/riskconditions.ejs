@@ -1,0 +1,139 @@
+<!-- symptoms.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/public/stylesheets/stylesheet1.css">
+    <title>Disease Detector</title>
+</head>
+<body>
+    <nav class="teal darken-1">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">
+                <i class="material-icons left">local_hospital</i>
+                Disease Detector
+            </a>
+            <a href ="/" class = "sidenav-trigger">
+                <i class = "material-icons">local_hospital</i>
+            </a>
+            <ul class="right">
+                <li>
+                    <a href="/">
+                        <i class="material-icons left">home</i>
+                        Home
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/intro">
+                        <i class="material-icons left">person_add</i>
+                        New Diagnosis
+                    </a>
+                </li>
+                <li>
+                    <a href="/database">
+                        <i class="material-icons left">people</i>
+                        Database
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h4>Select Patient's Past/Current Risk Factors:</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Risk Factor</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="risk_factorTableBody">
+            <% risk_factor.forEach((risk_factor) => { %>
+              <tr>
+                <td>
+                  <label>
+                    <input type="checkbox" class="filled-in" name="risk_factor" value="<%= risk_factor.name %>">
+                    <span><%= risk_factor.name %></span>
+                  </label>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <br>
+        <button onclick="checkCheckbox()" id="submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right"></i>
+        </button>
+        <div id="feedback"></div>
+        <div id="result"></div>
+    </div>
+
+    <div id="edit" class="modal">
+        <div class="container">
+            <h1>Risk Factor</h1>
+            <div class="modal-content">
+                <h4>Information</h4>
+                <p>A bunch of text</p>
+                <h4>What this can imply</h4>
+                <p>A bunch of text</p>
+                <h4>How to treat</h4>
+                <p>A bunch of text</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>M.AutoInit();</script>
+
+    <script>
+      function checkCheckbox() {
+        let data = [];
+        const checkboxes = document.querySelectorAll('input[name="risk_factor"]:checked');
+        checkboxes.forEach((checkbox) => {
+          data.push(checkbox.value);
+        });
+        localStorage.setItem('selectedrisk_factor', JSON.stringify(data));
+        window.location = '/intro/riskconditions/confirmrisk';
+      }
+
+      function getData() {
+        fetch('/risk_factor')
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem('risk_factor', JSON.stringify(data));
+            addDataToTable(data);
+          })
+          .catch((error) => console.error(error));
+      }
+
+      function addDataToTable(data) {
+        const tbody = document.getElementById('risk_factorTableBody');
+        data.forEach((item) => {
+          const newRow = document.createElement('tr');
+          const newCell = document.createElement('td');
+          const checkbox = document.createElement('label');
+          checkbox.innerHTML = `
+            <input type="checkbox" class="filled-in" name="risk_factor" value="${item.name}">
+            <span>${item.name}</span>
+          `;
+          newCell.appendChild(checkbox);
+          newRow.appendChild(newCell);
+          tbody.appendChild(newRow);
+        });
+      }
+
+      getData();
+    </script>
+
+</body>
+</html>

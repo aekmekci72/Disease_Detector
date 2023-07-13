@@ -1,3 +1,5 @@
+<!-- symptoms.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +10,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/public/stylesheets/stylesheet1.css">
     <title>Disease Detector</title>
-
-
 </head>
 <body>
     <nav class="teal darken-1">
@@ -22,51 +22,43 @@
                 <i class = "material-icons">local_hospital</i>
             </a>
             <ul class="right">
-                <li >
-                    <a href="/about">
-                        <i class="material-icons left">info_outline</i>
-                        About
+                <li>
+                    <a href="/">
+                        <i class="material-icons left">home</i>
+                        Home
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/intro">
+                        <i class="material-icons left">person_add</i>
+                        New Diagnosis
                     </a>
                 </li>
                 <li>
-                    <a href="/abstract">
-                        <i class="material-icons left">computer</i>
-                        Abstract
-                    </a>
-                </li>
-                <li>
-                    <a href="/credits">
-                        <i class="material-icons left">people_outline</i>
-                        Credits
+                    <a href="/database">
+                        <i class="material-icons left">people</i>
+                        Database
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class = "container">
-        <br>
-        <h6 class="left-align">Creators:</h6>
-        <p1 class="left-align">Anna Ekmekci</p1>
-        <p1>annekm26@bergen.org</p1>
-        <br>
-        <p1 class="left-align">Dyanne Lee</p1>
-        <p1>dyalee26@bergen.org</p1>
-        <h6 class="left-align">Special Thank You to:</h6>
-        <p1 class="left-align">Ms. Wang and Mr. Nodarse for their time, effort, consideration, and support!!!</p1>
-
-        <br>
-        <br>
-        <a class = "waves-effect waves-light btn-large orange" href="/intropage">
-            <i class="material-icons right">chevron_left</i>Return
-        </a>
-        
+    <div class="container">
+        <h1>Welcome <%= username %></h1>
     </div>
+
+    <div class="container">
+        <br>
+        <a class = "waves-effect waves-light btn-large orange modal-trigger" href="/intro">Add User Information</a>
+    </div>
+    
+      
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>M.AutoInit();</script>
 
+
 </body>
 </html>
-
-<!-- hi -->

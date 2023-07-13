@@ -5,6 +5,8 @@
 // set up the server
 const express = require("express");
 const logger = require("morgan");
+const bodyParser = require("body-parser"); // Add this line
+
 const app = express()
 const port = 3031;
 const DEBUG = true;
@@ -17,6 +19,7 @@ app.set( "view engine", "ejs" );
 app.use(logger("dev"));
 app.use(express.static(__dirname+'/public'));
 app.use( express.urlencoded({ extended: false }) );
+app.use(bodyParser.urlencoded({ extended: false })); // Add this line
 
 
 
@@ -44,11 +47,16 @@ app.get('/intro/riskconditions/confirmrisk/symptoms', (req, res, next) => {
     });
 });
 
+
+
 app.get("/", (req, res) => {
     res.render('index');
 });
-app.get("/signup", (req, res) => {
-    res.render("signup");
+app.get("/about", (req, res) => {
+    res.render("about");
+});
+app.get("/open", (req, res) => {
+    res.render("open");
 });
 app.get("/abstract",(req,res)=>{
     res.render("abstract");
@@ -62,8 +70,44 @@ app.get("/ourteam",(req,res)=>{
     res.render("ourteam");
 });
 
-app.get("/intro",(req,res)=>{
-    res.render("intro");
+
+
+
+const login_user_sql = `
+    SELECT * 
+    FROM login 
+    WHERE user_name = ? AND password = ?;
+`;
+
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+app.post("/login", (req, res) => {
+    const username = req.body.user_name;
+    const password = req.body.password;
+  
+    db.query(login_user_sql, [username, password], (error, results) => {
+      if (error) {
+        res.status(500).send(error);
+      } else {
+        if (results.length > 0) {
+          // User login successful
+          res.redirect(`/welcome?username=${username}`);
+        } else {
+          // Invalid username or password
+          res.redirect("/login"); // Redirect back to the login page or show an error message
+        }
+      }
+    });
+  });
+  
+
+
+
+  
+
+app.get("/signup",(req,res)=>{
+    res.render("signup");
 });
 
 const query_select_riskfactors = `SELECT * FROM risk_factors`;
@@ -200,6 +244,15 @@ const create_patient_sql = `
         (?, ?, ?, ?, ?, ?, ?, ?);
 `
 
+app.get("/intro", (req, res) => {
+    res.render("intro");
+});
+
+app.get("/welcome", (req, res) => {
+    const username = req.query.username;
+    res.render("welcome", { username: username });
+});
+
 app.post("/intro", ( req, res ) => {
     db.execute(create_patient_sql, [req.body.name_first, req.body.middle_initial, req.body.name_last, req.body.age, req.body.gender, req.body.weight, req.body.height, req.body.dob], (error, results) => {
         if (DEBUG)
@@ -208,6 +261,26 @@ app.post("/intro", ( req, res ) => {
             res.status(500).send(error); 
         else {
             res.redirect(`/intro/riskconditions`);
+        }
+    });
+});
+
+
+const create_user_sql = `
+    INSERT INTO login 
+        (user_name, password, email) 
+    VALUES 
+        (?, ?, ?);
+`
+
+app.post("/signup", ( req, res ) => {
+    db.execute(create_user_sql, [req.body.user_name, req.body.password, req.body.email], (error, results) => {
+        if (DEBUG)
+            console.log(error ? error : results);
+        if (error)
+            res.status(500).send(error); 
+        else {
+            res.redirect(`/intro`);
         }
     });
 });

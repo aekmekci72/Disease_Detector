@@ -43,39 +43,38 @@
             </ul>
       </div>
     </nav>
-
-    <div class="container">
-        <h4>Select Your Symptoms:</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Symptom</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="symptomsTableBody">
-            <% symptoms.forEach((symptom) => { %>
+    <form id="addForm" method="get" action="/confirmsymptoms">
+      <div class="container">
+          <h4>Select Your Symptoms:</h4>
+          <table>
+              <thead>
               <tr>
-                <td>
-                  <label>
-                    <input type="checkbox" class="filled-in" name="symptom" value="<%= symptom.name %>">
-                    <span><%= symptom.name %></span>
-                  </label>
-                </td>
+                  <th>Symptom</th>
+                  <th></th>
               </tr>
-            <% }) %>
-          </tbody>
-        </table>
-    </div>
+              </thead>
+              <tbody id="symptomsTableBody">
+              <% symptoms.forEach((symptom) => { %>
+              <tr>
+                  <td>
+                      <label>
+                          <input type="checkbox" class="filled-in" name="symptom" value="<%= symptom.name %>">
+                          <span><%= symptom.name %></span>
+                      </label>
+                  </td>
+              </tr>
+              <% }) %>
+              </tbody>
+          </table>
+      </div>
+      <input type="hidden" name="username" value="<%= username %>">
 
-    <div class="container">
-        <br>
-        <button onclick="checkCheckbox()" id="submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Submit
-            <i class="material-icons right"></i>
-        </button>
-        <div id="feedback"></div>
-        <div id="result"></div>
-    </div>
+      <div class="container">
+          <button id="submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Submit
+              <i class="material-icons right"></i>
+          </button>
+      </div>
+  </form>
 
     <div id="edit" class="modal">
         <div class="container">
@@ -95,6 +94,7 @@
     <script>M.AutoInit();</script>
 
     <script>
+      
       function checkCheckbox() {
         let data = [];
         const checkboxes = document.querySelectorAll('input[name="symptom"]:checked');
@@ -102,8 +102,23 @@
           data.push(checkbox.value);
         });
         localStorage.setItem('selectedSymptoms', JSON.stringify(data));
-        window.location = '/intro/riskconditions/confirmrisk/symptoms/confirmsymptoms';
+        console.log("Selected Symptoms:", data); // Debugging: Check the selected symptoms
       }
+
+      function updateCheckboxes() {
+        const selectedSymptoms = JSON.parse(localStorage.getItem('selectedSymptoms'));
+        console.log("Stored Symptoms:", selectedSymptoms); // Debugging: Check the stored symptoms
+        const checkboxes = document.querySelectorAll('input[name="symptom"]');
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = selectedSymptoms.includes(checkbox.value);
+        });
+      }
+
+      // Call the function to update checkboxes on page load
+      updateCheckboxes();
+
+      // Reset the selectedSymptoms array when the page is loaded or refreshed
+      localStorage.setItem('selectedSymptoms', JSON.stringify([]));
 
       function getData() {
         fetch('/symptoms')

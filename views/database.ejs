@@ -69,27 +69,16 @@
     </nav>
 
     <div class = "container">
-        <h4>Database 
-            <form id="form"> 
-                <input id="searchbar" type="text" name="search" placeholder="Search...">
-                <a class="btn-floating btn-small waves-effect waves-light">
-                    <i class="material-icons">search</i>
-                </a>
-            </form>
-        </h4>
+        <h4>Past Risks Detected</h4>
 
         <table>
             <thead>
               <tr>
                   <th></th>
-                  <th>Last Name</th>
-                  <th>Middle Initial</th>
-                  <th>First Name</th>
-                  <th>Age</th>
-                  <th>Gender</th>
-                  <th>Weight(kg)</th>
-                  <th>Height(cm)</th>
-                  <th>Date of Birth</th>
+                  <th>User ID</th>
+                  <th>Disease</th>
+                  <th>Percent Match</th>
+                  <th>Date Detected</th>
                   <th> </th>
               </tr>
             </thead>
@@ -103,44 +92,24 @@
                   </td>
                   <td>
                     <label>
-                      <span><%= patient.name_last %></span>
+                      <span><%= patient.user_id %></span>
                     </label>
                   </td>
                   <td>
                       <label>
-                        <span><%= patient.middle_initial %></span>
+                        <span><%= patient.disease %></span>
                       </label>
                   </td>
                   <td>
                       <label>
-                        <span><%= patient.name_first %></span>
+                        <span><%= patient.percent %></span>
                       </label>
                   </td>
                   <td>
-                      <label>
-                        <span><%= patient.age %></span>
-                      </label>
-                  </td>
-                  <td>
-                      <label>
-                        <span><%= patient.gender %></span>
-                      </label>
-                  </td>
-                  <td>
-                      <label>
-                        <span><%= patient.weight %></span>
-                      </label>
-                  </td>
-                  <td>
-                      <label>
-                        <span><%= patient.height %></span>
-                      </label>
-                  </td>
-                  <td>
-                      <label>
-                        <span><%= patient.dob %></span>
-                      </label>
-                  </td>
+                    <label>
+                        <span><%= new Date(patient.datedetected).toDateString() %></span>
+                    </label>
+                </td>
                   <td>
                     <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/database/<%= patient.patient_id %>/details">
                       <i class="material-icons right">edit</i>Edit
@@ -183,9 +152,6 @@
         </div>   
     </div>
 
-    <script>
-        
-    </script>
 
     <div class="modal" id="inform">
         <!-- This should be different for each patient -->
@@ -218,11 +184,10 @@
     </div>
 
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>M.AutoInit();</script>
     
 
 </body>
 </html>
-
-<!-- hi -->

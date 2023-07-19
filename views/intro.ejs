@@ -49,8 +49,8 @@
     </nav>
 
     <div class = "container">
-        <h2>Add User Information</h2>
-        <h5>[can edit any time]</h5>
+        <h2>Add/Update User Information</h2>
+        <h5>[can update any time]</h5>
 
         <form id="addForm" method="post" action="/intro">
             <div class="row">
@@ -104,8 +104,10 @@
                     <label for="dueDateInput">DOB</label>
                 </div>
             </div>
+            <input type="hidden" name="username" value="<%= username %>">
         
             <div class="container">
+                
                 <button class="waves-effect waves-light btn-large orange" type="submit">
                     <i class="material-icons right">send</i>
                     Submit

@@ -43,16 +43,26 @@
         </div>
     </nav>
     <div class="container">
+        <input type="hidden" name="username" value="<%= username %>">
         <h4>Selected Symptoms:</h4>
-        <ul id="selected-symptoms"></ul>
-        
-        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/intro/riskconditions/confirmrisk/symptoms">
-            <i class="material-icons right">chevron_left</i>Return
-        </a>
-        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/intro/riskconditions/confirmrisk/symptoms/confirmsymptoms/results">
-            <i class="material-icons right">chevron_right</i>Continue
-        </a>
-    </div>
+        <ul id="selected-symptoms">
+          <% symptoms.forEach((symptom) => { %>
+            <li><%= symptom %></li>
+          <% }) %>
+        </ul>
+        <form action="/symptoms" method="get">
+          <input type="hidden" name="username" value="<%= username %>">
+          <button class="waves-effect waves-light btn-large orange" type="submit">
+            Return
+          </button>
+        </form>
+        <form action="/riskconditions" method="get">
+          <input type="hidden" name="username" value="<%= username %>">
+          <button class="waves-effect waves-light btn-large orange" type="submit">
+            Continue
+          </button>
+        </form>
+      </div>
 
     <script>
         // Retrieve the selectedSymptoms array from localStorage

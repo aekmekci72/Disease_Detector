@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/public/stylesheets/stylesheet1.css">
+  <title>User Information</title>
+</head>
+<body>
+    <nav class="teal darken-1">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">
+                <i class="material-icons left">local_hospital</i>
+                Disease Detector
+            </a>
+            <a href ="/" class = "sidenav-trigger">
+                <i class = "material-icons">local_hospital</i>
+            </a>
+            <!-- a is for hyperlink -->
+            <!-- ul for unordered list -->
+            <!-- li for list items -->
+            <ul class="right">
+                <li >
+                    <a href="/">
+                        <i class="material-icons left">home</i>
+                        Home
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/intro">
+                        <i class="material-icons left">person_add</i>
+                        New Diagnosis
+                    </a>
+                </li>
+                <li>
+                    <a href="/database">
+                        <i class="material-icons left">people</i>
+                        Database
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+  <div class="container">
+    <h1>User Information</h1>
+    <% if (users.length === 0) { %>
+      <p>No users found.</p>
+    <% } else { %>
+      
+          <% users.forEach(function(user) { %>
+            <div>
+                <h5>Name: <%= user.name_first %> <%= user.middle_initial %> <%= user.name_last %></h5>
+            </div>
+            <div>
+                <h5>Age: <%= user.age %></h5>
+            </div>
+            <div>
+                <h5>Sex: <%= user.gender %></h5>
+            </div>
+            <div>
+                <h5>Weight: <%= user.weight %></h5>
+            </div>
+            <div>
+                <h5>Height: <%= user.height %></h5>
+            </div>
+            <div>
+                <h5>Age: <%= user.age %></h5>
+            </div>
+            <div>
+                <h5>Date of Birth: <%= user.dob %></h5>
+            </div>
+
+          <% }); %>
+    <% } %>
+  </div>
+  <br></br>
+  <div class="container">
+    <form action="/welcome" method="get">
+        <input type="hidden" name="username" value="<%= username %>">
+        <button class="waves-effect waves-light btn-large orange" type="submit">
+            Back
+        </button>
+    </form>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>M.AutoInit();</script>
+</body>
+</html>

@@ -43,39 +43,38 @@
             </ul>
         </div>
     </nav>
-
-    <div class="container">
-        <h4>Select Patient's Past/Current Risk Factors:</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Risk Factor</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="risk_factorTableBody">
-            <% risk_factor.forEach((risk_factor) => { %>
+    <form id="addForm" method="get" action="/confirmrisk">
+      <div class="container">
+          <h4>Select Patient's Past/Current Risk Factors:</h4>
+          <table>
+            <thead>
               <tr>
-                <td>
-                  <label>
-                    <input type="checkbox" class="filled-in" name="risk_factor" value="<%= risk_factor.name %>">
-                    <span><%= risk_factor.name %></span>
-                  </label>
-                </td>
+                <th>Risk Factor</th>
+                <th></th>
               </tr>
-            <% }) %>
-          </tbody>
-        </table>
-    </div>
+            </thead>
+            <tbody id="risk_factorTableBody">
+              <% risk_factor.forEach((risk_factor) => { %>
+                <tr>
+                  <td>
+                    <label>
+                      <input type="checkbox" class="filled-in" name="risk_factor" value="<%= risk_factor.name %>">
+                      <span><%= risk_factor.name %></span>
+                    </label>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+      </div>
+      <input type="hidden" name="username" value="<%= username %>">
 
-    <div class="container">
-        <br>
-        <button onclick="checkCheckbox()" id="submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <div class="container">
+        <button id="submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Submit
             <i class="material-icons right"></i>
         </button>
-        <div id="feedback"></div>
-        <div id="result"></div>
-    </div>
+      </div>
+    </form>
 
     <div id="edit" class="modal">
         <div class="container">
@@ -101,8 +100,8 @@
         checkboxes.forEach((checkbox) => {
           data.push(checkbox.value);
         });
-        localStorage.setItem('selectedrisk_factor', JSON.stringify(data));
-        window.location = '/intro/riskconditions/confirmrisk';
+        localStorage.setItem('selectedRisks', JSON.stringify(data));
+        onsole.log("Selected Risks:", data);
       }
 
       function getData() {
@@ -116,23 +115,45 @@
           .catch((error) => console.error(error));
       }
 
-      function addDataToTable(data) {
-        const tbody = document.getElementById('risk_factorTableBody');
-        data.forEach((item) => {
-          const newRow = document.createElement('tr');
-          const newCell = document.createElement('td');
-          const checkbox = document.createElement('label');
-          checkbox.innerHTML = `
-            <input type="checkbox" class="filled-in" name="risk_factor" value="${item.name}">
-            <span>${item.name}</span>
-          `;
-          newCell.appendChild(checkbox);
-          newRow.appendChild(newCell);
-          tbody.appendChild(newRow);
+      function updateCheckboxes() {
+        const selectedRisks = JSON.parse(localStorage.getItem('selectedRisks'));
+        console.log("Stored Risks:", selectedRisks); // Debugging: Check the stored symptoms
+        const checkboxes = document.querySelectorAll('input[name="risk_factor"]');
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = selectedRisks.includes(checkbox.value);
         });
       }
+      updateCheckboxes();
+      localStorage.setItem('selectedRisks', JSOM.stringify([]));
 
-      getData();
+      function getData() {
+        fetch('/riskconditions')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                localStorage.setItem('risk_factor', JSON.stringify(data));
+                addDataToTable(data);
+            })
+            .catch((error) => console.error(error));
+    }
+
+    function addDataToTable(data) {
+        const tbody = document.getElementById('risk_factorTableBody');
+        data.forEach((item) => {
+            const newRow = document.createElement('tr');
+            const newCell = document.createElement('td');
+            const checkbox = document.createElement('label');
+            checkbox.innerHTML = `
+                <input type="checkbox" class="filled-in" name="risk_factor" value="${item.name}">
+                <span>${item.name}</span>
+            `;
+            newCell.appendChild(checkbox);
+            newRow.appendChild(newCell);
+            tbody.appendChild(newRow);
+        });
+    }
+
+    getData();
     </script>
 
 </body>

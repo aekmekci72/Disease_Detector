@@ -47,15 +47,38 @@
     <div class="container">
         <h1>Welcome <%= username %></h1>
     </div>
-
     <div class="container">
-        <br>
-        <a class = "waves-effect waves-light btn-large orange modal-trigger" href="/intro">Add User Information</a>
+        <form action="/display" method="get">
+            <input type="hidden" name="username" value="<%= username %>">
+            <button class="waves-effect waves-light btn-large orange" type="submit">
+                View User Information
+            </button>
+        </form>
     </div>
-    
-      
-
-
+    <div class="container">
+        <form action="/intro" method="get">
+            <input type="hidden" name="username" value="<%= username %>">
+            <button class="waves-effect waves-light btn-large orange" type="submit">
+                Add/Edit User Information
+            </button>
+        </form>
+    </div>
+    <div class="container">
+        <form action="/symptoms" method="get">
+            <input type="hidden" name="username" value="<%= username %>">
+            <button class="waves-effect waves-light btn-large orange" type="submit">
+                Take Test
+            </button>
+        </form>
+    </div>
+    <div class="container">
+        <form action="/database" method="get">
+            <input type="hidden" name="username" value="<%= username %>">
+            <button class="waves-effect waves-light btn-large orange" type="submit">
+                View Past Risks
+            </button>
+        </form>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>M.AutoInit();</script>
 

@@ -43,27 +43,37 @@
         </div>
     </nav>
     <div class="container">
-        <h4>Selected Risks:</h4>
-        <ul id="selectedrisk_factor"></ul>
-        
-        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/intro/riskconditions">
-            <i class="material-icons right">chevron_left</i>Return
-        </a>
-        <a class = "waves-effect waves-light btn-small orange modal-trigger" href="/intro/riskconditions/confirmrisk/symptoms">
-            <i class="material-icons right">chevron_right</i>Continue
-        </a>
+        <input type="hidden" name="username" value="<%= username %>">
+        <h4>Selected Risk Factors:</h4>
+        <ul id="selectedrisk_factor">
+          <% risk_factor.forEach((risk_factor) => { %>
+            <li><%= risk_factor %></li>
+          <% }) %>
+        </ul>
+        <form action="/riskconditions" method="get">
+            <input type="hidden" name="username" value="<%= username %>">
+            <button class="waves-effect waves-light btn-large orange" type="submit">
+                Return
+            </button>
+        </form>
+        <form action="/results" method="get">
+            <input type="hidden" name="username" value="<%= username %>">
+            <button class="waves-effect waves-light btn-large orange" type="submit">
+                Continue
+            </button>
+        </form>
     </div>
 
     <script>
-        const selectedFactors = JSON.parse(localStorage.getItem('selectedrisk_factor'));
-
+        const selectedFactors = JSON.parse(localStorage.getItem('selectedRisks'));
         const selectedFactorsList = document.getElementById('selectedrisk_factor');
-        selectedFactors.forEach(risk_factor => {
+        selectedFactors.forEach((risk_factor) => {
             const li = document.createElement('li');
             li.textContent = risk_factor;
             selectedFactorsList.appendChild(li);
         });
     </script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>M.AutoInit();</script>
 </body>
